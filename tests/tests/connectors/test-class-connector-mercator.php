@@ -1,4 +1,11 @@
 <?php
+/**
+ * WP Integration Test w/ Mercator
+ *
+ * Tests for Mercator connector class callbacks.
+ *
+ * @package WP_Stream
+ */
 namespace WP_Stream;
 
 class Test_WP_Stream_Connector_Mercator extends WP_StreamTestCase {
