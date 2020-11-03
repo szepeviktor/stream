@@ -76,7 +76,16 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 						'stream'
 					)
 				),
-				$this->equalTo( array( 'site_name' => 'testsite' ) ),
+				$this->callback(
+					function( $meta ) {
+						$expected_meta = array(
+							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+						);
+
+						return $expected_meta === array_intersect_key( $expected_meta, $meta );
+					}
+				),
 				$this->greaterThan( 0 ),
 				$this->equalTo( 'testsite' ),
 				$this->equalTo( 'created' )
@@ -109,7 +118,13 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 						'stream'
 					)
 				),
-				$this->equalTo( array( 'site_name' => 'testsite' ) ),
+				$this->equalTo(
+					array(
+						'site_name' => 'testsite',
+						'siteurl'   => '//testsite',
+						'id'        => $blog_id,
+					)
+				),
 				$this->greaterThan( 0 ),
 				$this->equalTo( 'testsite' ),
 				$this->equalTo( 'deleted' )
@@ -138,7 +153,13 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 						'stream'
 					)
 				),
-				$this->equalTo( array( 'site_name' => 'testsite' ) ),
+				$this->equalTo(
+					array(
+						'site_name' => 'testsite',
+						'siteurl'   => '//testsite',
+						'id'        => $blog_id,
+					)
+				),
 				$this->equalTo( $blog_id ),
 				$this->equalTo( 'testsite' ),
 				$this->equalTo( 'created' ),
@@ -172,6 +193,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					array(
 						'user_name' => 'testuser',
 						'site_name' => 'testsite',
+						'siteurl'   => '//testsite',
+						'id'        => $blog_id,
 						'role_name' => 'subscriber',
 					)
 				),
@@ -208,6 +231,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					array(
 						'user_name' => 'testuser',
 						'site_name' => 'testsite',
+						'siteurl'   => '//testsite',
+						'id'        => $blog_id,
 					)
 				),
 				$this->equalTo( $blog_id ),
@@ -247,6 +272,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'marked as spam', 'stream' ),
 						)
 					),
@@ -265,6 +292,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'marked as not spam', 'stream' ),
 						)
 					),
@@ -283,6 +312,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'marked as mature', 'stream' ),
 						)
 					),
@@ -301,6 +332,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'marked as not mature', 'stream' ),
 						)
 					),
@@ -319,6 +352,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'archived', 'stream' ),
 						)
 					),
@@ -337,6 +372,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'restored from archive', 'stream' ),
 						)
 					),
@@ -355,6 +392,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'trashed', 'stream' ),
 						)
 					),
@@ -373,6 +412,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'restored', 'stream' ),
 						)
 					),
@@ -391,6 +432,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'marked as public', 'stream' ),
 						)
 					),
@@ -409,6 +452,8 @@ class Test_WP_Stream_Connector_Blogs extends WP_StreamTestCase {
 					$this->equalTo(
 						array(
 							'site_name' => 'testsite',
+							'siteurl'   => '//testsite',
+							'id'        => $blog_id,
 							'status'    => esc_html__( 'marked as private', 'stream' ),
 						)
 					),
