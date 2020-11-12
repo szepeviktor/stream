@@ -660,27 +660,14 @@ class Connector_Woocommerce extends Connector {
 	 * @param int $tax_rate_id  Tax Rate ID.
 	 */
 	public function callback_woocommerce_tax_rate_deleted( $tax_rate_id ) {
-		global $wpdb;
-
-		$tax_rate_name = $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT tax_rate_name FROM {$wpdb->prefix}woocommerce_tax_rates
-				WHERE tax_rate_id = %s
-				",
-				$tax_rate_id
-			)
-		);
-
 		$this->log(
 			/* translators: %4$s: a tax rate name (e.g. "GST") */
 			_x(
-				'"%s" tax rate deleted',
+				'Tax rate identified by ID:"%s" deleted',
 				'Tax rate name',
 				'stream'
 			),
-			array(
-				'tax_rate_name' => $tax_rate_name,
-			),
+			compact( 'tax_rate_id' ),
 			$tax_rate_id,
 			'tax',
 			'deleted'
